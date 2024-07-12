@@ -9,5 +9,4 @@ services:
       - .:/app
     environment:
       - OPENAI_API_KEY=your_openai_api_key_here
-      - OPENAI_PROMPT=Extract details: Date, Time, Ticket Number, Issuing Company, Truck Number (Australia), Waste Name, Gross Weight, Tare Weight, Net Weight in JSON format.
-
+      - OPENAI_PROMPT=your_prompt_here
