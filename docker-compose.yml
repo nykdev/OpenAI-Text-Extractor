@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5123:5123"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - openai
+

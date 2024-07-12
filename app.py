@@ -12,9 +12,10 @@ app = Flask(__name__)
 
 # Set your OpenAI API key from the environment
 api_key = os.getenv("OPENAI_API_KEY")
+prompt = os.getenv("OPENAI_PROMPT")
 client = OpenAI(api_key=api_key)
 
-# Function to process base64 encoded image with OpenAI GPT-3.5 Turbo and extract required details
+# Function to process base64 encoded image with OpenAI GPT-4o and extract required details
 def process_image_with_openai(image_url):
     GPT_MODEL = "gpt-4o"
     response = client.chat.completions.create(
@@ -22,7 +23,7 @@ def process_image_with_openai(image_url):
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user","content": [
-                    {"type": "text", "text": "Extract details: Date, Time, Ticket Number, Issuing Company, Truck Number (Australia), Waste Name, Gross Weight, Tare Weight, Net Weight in JSON format.Image might be in wrong orientation"},
+                    {"type": "text", "text": prompt},
                     {"type": "image_url", "image_url": {
                         "url": image_url}
                     }
@@ -40,7 +41,7 @@ def process_image_with_openai(image_url):
     else:
         return None
 
-# API endpoint to process image URL and extract details with GPT-3.5 Turbo
+# API endpoint to process image URL and extract details with GPT-4o
 @app.route('/extract-details', methods=['POST'])
 def extract_details():
     data = request.get_json()
